@@ -11,11 +11,10 @@ function App() {
   //TODO: Use dark class strategy to conditionally apply dark or light theme style
   //      Can use an app level state variable to keep track of it.
   const [themeDark, setThemeDark] = useState<boolean>(false);
-  // console.log("username", import.meta.env.VITE_USERNAME);
-  // console.log("password", import.meta.env.VITE_PWD);
+
   const [notes, setNotes] = useState([]);
   const {
-    data: userData,
+    // data: userData,
     // isLoading: isUserLoading,
     // isError: isLoginError,
     isSuccess: isUserSuccess,
@@ -29,7 +28,7 @@ function App() {
     staleTime: 3600000,
     onSuccess: (response) => {
       setToken(response.data.token);
-      console.log("token", token);
+      // console.log("token", token);
     },
   });
 

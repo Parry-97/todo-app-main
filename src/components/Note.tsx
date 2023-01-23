@@ -10,17 +10,35 @@ function Note({ text }: { text: string }) {
       <div
         className={`${
           selected ? "bg-gradient-to-r" : ""
-        } group-hover:bg-gradient-to-r from-[#57ddff] to-[#c058f3] ml-10 rounded-full border py-1.5 px-[5px]  dark:border-gray-600 border-gray-300`}
+        } group-hover:bg-gradient-to-r from-[#57ddff] to-[#c058f3] group-hover:border-white dark:group-hover:border-very-dark-desaturated-blue ml-10 rounded-full border py-[1px] px-[1px]  dark:border-gray-600 border-gray-300`}
       >
-        <img
-          className={`${
-            !selected ? "invisible" : "visible"
-          } group-hover:visible`}
-          src="../images/icon-check.svg"
-          alt="check mark icon"
-        />
+        {selected ? (
+          <img
+            className={`
+             py-1.5 px-[5px] rounded-full`}
+            src="../images/icon-check.svg"
+            alt="check mark icon"
+          />
+        ) : (
+          <div className="group-hover:bg-white dark:group-hover:bg-very-dark-desaturated-blue rounded-full">
+            <img
+              className={`invisible
+             py-1.5 px-[5px] rounded-full`}
+              src="../images/icon-check.svg"
+              alt="check mark icon"
+            />
+          </div>
+        )}
       </div>
-      <div className="grow">{text}</div>
+      <div
+        className={`${
+          selected
+            ? "line-through text-dark-grayish-blue dark:text-dark-grayish-blue"
+            : "text-very-dark-blue dark:text-light-grayish-blue"
+        } grow transition-all ease-out duration-500`}
+      >
+        {text}
+      </div>
     </div>
   );
 }
