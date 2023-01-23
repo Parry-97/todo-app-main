@@ -9,8 +9,8 @@ function Note({ text }: { text: string }) {
     >
       <div
         className={`${
-          selected ? "bg-gradient-to-r" : ""
-        } group-hover:bg-gradient-to-r from-[#57ddff] to-[#c058f3] group-hover:border-white dark:group-hover:border-very-dark-desaturated-blue ml-10 rounded-full border py-[1px] px-[1px]  dark:border-gray-600 border-gray-300`}
+          selected ? "bg-gradient-to-b" : ""
+        } group-hover:bg-gradient-to-b from-[#57ddff] to-[#c058f3] group-hover:border-white dark:group-hover:border-very-dark-desaturated-blue ml-10 rounded-full border py-[1px] px-[1px]  dark:border-gray-600 border-gray-300`}
       >
         {selected ? (
           <img
@@ -33,7 +33,7 @@ function Note({ text }: { text: string }) {
       <div
         className={`${
           selected
-            ? "line-through text-dark-grayish-blue dark:text-dark-grayish-blue"
+            ? "decoration-1 line-through text-dark-grayish-blue dark:text-dark-grayish-blue"
             : "text-very-dark-blue dark:text-light-grayish-blue"
         } grow transition-all ease-out duration-500`}
       >

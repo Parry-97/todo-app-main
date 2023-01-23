@@ -1,18 +1,26 @@
-import { FormEvent, useState } from "react";
-import { useQuery } from "react-query";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 // import reactLogo from "./assets/react.svg";
 import "./App.css";
 import NoteList from "./components/NoteList";
 import ThemeSelector from "./components/ThemeSelector";
 import { login } from "./services/auth";
-import { fetchNotes, setToken, token } from "./services/notes";
+import {
+  addNote,
+  fetchNotes,
+  NoteType,
+  setToken,
+  token,
+} from "./services/notes";
 
 function App() {
   //TODO: Use dark class strategy to conditionally apply dark or light theme style
   //      Can use an app level state variable to keep track of it.
   const [themeDark, setThemeDark] = useState<boolean>(false);
+  const [newNote, setNewNote] = useState("");
+  const queryClient = useQueryClient();
 
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState<NoteType[]>([]);
   const {
     // data: userData,
     // isLoading: isUserLoading,
@@ -48,6 +56,15 @@ function App() {
     },
   });
 
+  const addNoteMutation = useMutation({
+    mutationKey: ["new note"],
+    mutationFn: (noteObj: NoteType) => addNote(noteObj),
+    onSuccess: (data) => {
+      //WARN: Invalidating the whole list is the "safer" approach.
+      queryClient.setQueryData(["notes"], [...notes, data]);
+    },
+  });
+
   if (isLoading) {
     return <div>Loading</div>;
   }
@@ -62,7 +79,19 @@ function App() {
 
   const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault();
-    console.log("target", evt.target);
+    // console.log("target", evt.target);
+    const noteObj = {
+      content: newNote,
+      date: new Date(),
+      important: Math.random() < 0.5,
+    };
+
+    // ISSUE: Fly app is returning 502 during late hours
+    // addNoteMutation.mutate(noteObj);
+    // Below update is just temporary
+    setNotes([...notes, noteObj]);
+
+    setNewNote("");
   };
 
   return (
@@ -95,6 +124,9 @@ function App() {
                 className="w-full h-12 dark:bg-very-dark-desaturated-blue dark:text-white outline-none"
                 placeholder="Create a new note"
                 type="text"
+                value={newNote}
+                required
+                onChange={(evt) => setNewNote(evt.target.value)}
               />
             </div>
           </div>
