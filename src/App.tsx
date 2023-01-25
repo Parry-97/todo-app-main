@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 // import reactLogo from "./assets/react.svg";
 import "./App.css";
@@ -48,11 +48,13 @@ function App() {
   } = useQuery({
     queryKey: ["notes", token],
     queryFn: fetchNotes,
-    staleTime: 5000,
+    staleTime: 100000,
     enabled: isUserSuccess,
     onSuccess(data) {
       //WARN: Had to assign to a state variable to have it work properly as a dependent query
+      console.log("notes", data);
       setNotes(data);
+      // setNotes(data.map((note: NoteType) => (note.noteStatus = "active")));
     },
   });
 
@@ -80,17 +82,18 @@ function App() {
   const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault();
     // console.log("target", evt.target);
-    const noteObj = {
+    const noteObj: NoteType = {
       content: newNote,
       date: new Date(),
       important: Math.random() < 0.5,
+      id: (notes.length + 1).toString(),
+      noteStatus: "active",
     };
 
     // ISSUE: Fly app is returning 502 during late hours
     // addNoteMutation.mutate(noteObj);
     // Below update is just temporary
     setNotes([...notes, noteObj]);
-
     setNewNote("");
   };
 

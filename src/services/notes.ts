@@ -4,6 +4,8 @@ export interface NoteType {
   content: string,
   date: Date,
   important : boolean
+  id: string
+  noteStatus: 'active' | 'completed'
 }
 
 export let token = "";

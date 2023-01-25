@@ -39,6 +39,18 @@ function Note({ text }: { text: string }) {
       >
         {text}
       </div>
+      <div>
+        {
+          //TODO: Try adding transition for cross icon
+        }
+        <img
+          className={`${
+            selected ? "visibile" : "invisible"
+          } mr-10 cursor-pointer`}
+          src="../../images/icon-cross.svg"
+          alt="cross icon"
+        />
+      </div>
     </div>
   );
 }
