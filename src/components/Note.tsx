@@ -1,10 +1,28 @@
-import { useState } from "react";
+import { MouseEvent, MouseEventHandler } from "react";
 
-function Note({ text }: { text: string }) {
-  const [selected, setSelected] = useState(false);
+function Note({
+  selected,
+  onSelect,
+  text,
+  onDelete,
+}: {
+  selected: boolean;
+  text: string;
+  onSelect: MouseEventHandler;
+  onDelete: () => void;
+}) {
+  // const [selected, setSelected] = useState(false);
+
+  function deleteOnSelected(evt: MouseEvent) {
+    evt.stopPropagation();
+    if (selected) {
+      onDelete();
+    }
+  }
+
   return (
     <div
-      onClick={() => setSelected(!selected)}
+      onClick={onSelect}
       className="group m-0.5 flex items-center bg-white gap-5 dark:bg-very-dark-desaturated-blue py-5"
     >
       <div
@@ -39,10 +57,7 @@ function Note({ text }: { text: string }) {
       >
         {text}
       </div>
-      <div>
-        {
-          //TODO: Try adding transition for cross icon
-        }
+      <div onClick={deleteOnSelected}>
         <img
           className={`${
             selected ? "visibile" : "invisible"

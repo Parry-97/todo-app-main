@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useImmer } from "use-immer";
 // import reactLogo from "./assets/react.svg";
 import "./App.css";
 import NoteList from "./components/NoteList";
@@ -20,7 +21,7 @@ function App() {
   const [newNote, setNewNote] = useState("");
   const queryClient = useQueryClient();
 
-  const [notes, setNotes] = useState<NoteType[]>([]);
+  const [notes, setNotes] = useImmer<NoteType[]>([]);
   const {
     // data: userData,
     // isLoading: isUserLoading,
@@ -53,7 +54,11 @@ function App() {
     onSuccess(data) {
       //WARN: Had to assign to a state variable to have it work properly as a dependent query
       console.log("notes", data);
+      data.forEach((element: NoteType) => {
+        element.noteStatus = "active";
+      });
       setNotes(data);
+
       // setNotes(data.map((note: NoteType) => (note.noteStatus = "active")));
     },
   });
@@ -135,7 +140,7 @@ function App() {
           </div>
         </form>
       </div>
-      <NoteList currentNotes={notes} />
+      <NoteList onChangeNotes={setNotes} currentNotes={notes} />
     </div>
   );
 }
