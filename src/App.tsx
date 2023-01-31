@@ -141,7 +141,7 @@ function App() {
       <div
         className={`transition-all duration-300 ease-out bg-cover m-0 p-5 h-2/5 dark:bg-[url('../images/bg-desktop-dark.jpg')] bg-[url('../images/bg-desktop-light.jpg')]`}
       >
-        <div className="w-4/5 lg:w-1/3 mx-auto mt-10 flex justify-between items-center">
+        <div className="w-11/12 max-w-2xl mx-auto mt-10 flex justify-between items-center">
           <h1 className="text-white uppercase text-5xl font-bold">T o d o</h1>
           <ThemeSelector
             isDark={themeDark}
@@ -149,7 +149,7 @@ function App() {
           />
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="px-5 flex items-center bg-white gap-5 dark:bg-very-dark-desaturated-blue w-11/12 max-w-xl mx-auto mt-10">
+          <div className="px-5 flex items-center bg-white gap-5 dark:bg-very-dark-desaturated-blue w-11/12 max-w-2xl mx-auto mt-10">
             <div className="rounded-full border py-1.5 px-[5px] dark:border-gray-600  border-gray-300">
               <img
                 className="invisible"

@@ -38,7 +38,7 @@ function NoteList({
   };
 
   return (
-    <div className=" dark:text-white rounded-sm py-1 shadow-2xl  bg-white gap-5 dark:bg-very-dark-desaturated-blue w-11/12 max-w-xl mx-auto mt-10">
+    <div className=" dark:text-white rounded-sm py-1 shadow-2xl  bg-white gap-5 dark:bg-very-dark-desaturated-blue w-11/12 max-w-2xl mx-auto mt-10">
       <ul
         ref={animationParent}
         className="divide-y dark:divide-very-dark-grayish-blue "
