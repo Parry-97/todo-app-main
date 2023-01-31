@@ -1,17 +1,32 @@
+import { useSortable } from "@dnd-kit/sortable";
 import { MouseEvent, MouseEventHandler } from "react";
 
 function Note({
   selected,
   onSelect,
   text,
+  noteid,
   onDelete,
 }: {
   selected: boolean;
   text: string;
+  noteid: string;
   onSelect: MouseEventHandler;
   onDelete: () => void;
 }) {
   // const [selected, setSelected] = useState(false);
+
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({
+      id: noteid,
+    });
+
+  const style = transform
+    ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+        transition,
+      }
+    : undefined;
 
   function deleteOnSelected(evt: MouseEvent) {
     evt.stopPropagation();
@@ -22,6 +37,10 @@ function Note({
 
   return (
     <div
+      style={style}
+      {...listeners}
+      {...attributes}
+      ref={setNodeRef}
       onClick={onSelect}
       className="group m-0.5 flex items-center bg-white gap-5 dark:bg-very-dark-desaturated-blue py-5"
     >

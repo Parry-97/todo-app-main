@@ -4,8 +4,9 @@ import NoteStatusToggle from "./NoteStatusToggle";
 import { MouseEvent, useState } from "react";
 import { NoteType } from "../services/notes";
 import { Updater } from "use-immer";
+import { useDroppable } from "@dnd-kit/core";
 
-//INFO: Try using dnd kit (behavior built-in to it) as well for the drag n drop feature. Could work well with auto-animate.
+//TODO: Try using dnd kit (behavior built-in to it) as well for the drag n drop feature. Could work well with auto-animate.
 //useGesture is another alternative in case dnd kit does not work but behaviour will need to be defined for better performance
 
 function NoteList({
@@ -51,6 +52,7 @@ function NoteList({
             }
             key={note.id}
             onSelect={() => onSelectNote(note.id)}
+            noteid={note.id}
             text={note.content}
             selected={note.noteStatus != "active"}
           ></Note>

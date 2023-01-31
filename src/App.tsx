@@ -1,3 +1,11 @@
+import {
+  DndContext,
+  DragOverEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { FormEvent, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useImmer } from "use-immer";
@@ -63,6 +71,15 @@ function App() {
     },
   });
 
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        delay: 150,
+        tolerance: 10,
+      },
+    })
+  );
+
   const addNoteMutation = useMutation({
     mutationKey: ["new note"],
     mutationFn: (noteObj: NoteType) => addNote(noteObj),
@@ -78,6 +95,19 @@ function App() {
 
   if (isError) {
     return <div>Error occured</div>;
+  }
+
+  function handleDragEnd(event: DragOverEvent) {
+    const { active, over } = event;
+
+    if (active.id !== over?.id) {
+      setNotes((notes) => {
+        const oldIndex = notes.findIndex((note) => note.id == active.id);
+        const newIndex = notes.findIndex((note) => over?.id == note.id);
+
+        return arrayMove(notes, oldIndex, newIndex);
+      });
+    }
   }
 
   // if (isSuccess) {
@@ -119,7 +149,7 @@ function App() {
           />
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="px-5 flex items-center bg-white gap-5 dark:bg-very-dark-desaturated-blue w-4/5 lg:w-1/3 mx-auto mt-10">
+          <div className="px-5 flex items-center bg-white gap-5 dark:bg-very-dark-desaturated-blue w-11/12 max-w-xl mx-auto mt-10">
             <div className="rounded-full border py-1.5 px-[5px] dark:border-gray-600  border-gray-300">
               <img
                 className="invisible"
@@ -140,7 +170,11 @@ function App() {
           </div>
         </form>
       </div>
-      <NoteList onChangeNotes={setNotes} currentNotes={notes} />
+      <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+        <SortableContext items={notes}>
+          <NoteList currentNotes={notes} onChangeNotes={setNotes}></NoteList>
+        </SortableContext>
+      </DndContext>
     </div>
   );
 }
