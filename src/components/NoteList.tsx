@@ -4,7 +4,6 @@ import NoteStatusToggle from "./NoteStatusToggle";
 import { MouseEvent, useState } from "react";
 import { NoteType } from "../services/notes";
 import { Updater } from "use-immer";
-import { useDroppable } from "@dnd-kit/core";
 
 //TODO: Try using dnd kit (behavior built-in to it) as well for the drag n drop feature. Could work well with auto-animate.
 //useGesture is another alternative in case dnd kit does not work but behaviour will need to be defined for better performance
@@ -38,7 +37,7 @@ function NoteList({
   };
 
   return (
-    <div className=" dark:text-white rounded-sm py-1 shadow-2xl  bg-white gap-5 dark:bg-very-dark-desaturated-blue w-11/12 max-w-2xl mx-auto mt-10">
+    <div className="absolute top-1/4 left-1/2 -translate-x-1/2 dark:text-white rounded-sm py-1 shadow-2xl  bg-white gap-5 dark:bg-very-dark-desaturated-blue w-11/12 max-w-2xl mx-auto mt-10">
       <ul
         ref={animationParent}
         className="divide-y dark:divide-very-dark-grayish-blue "

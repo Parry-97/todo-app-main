@@ -134,7 +134,7 @@ function App() {
 
   return (
     <div
-      className={`transition-colors duration-300 ease-out h-full ${
+      className={` transition-colors duration-300 ease-out h-full ${
         themeDark ? "bg-very-dark-blue dark" : ""
       }`}
     >
