@@ -1,4 +1,6 @@
 import { Transition } from "@headlessui/react";
+import sunIcon from "../../images/icon-sun.svg";
+import moonIcon from "../../images/icon-moon.svg";
 //INFO: Check out https://www.skies.dev/headless-ui-transitions if needs other beatiful transition
 export const transitionClasses = {
   enter: "transform transition duration-[400ms] ease-linear",
@@ -10,7 +12,13 @@ export const transitionClasses = {
   leaveTo: "opacity-0 scale-0",
 };
 
-export default function ThemeSelector({ onToggle, isDark }) {
+export default function ThemeSelector({
+  onToggle,
+  isDark,
+}: {
+  isDark: boolean;
+  onToggle: () => void;
+}) {
   return (
     //NOTE: setting the container as a flex row makes sure we don't have y-translation for the first icon transition
     <div
@@ -18,10 +26,10 @@ export default function ThemeSelector({ onToggle, isDark }) {
       onClick={onToggle}
     >
       <Transition show={!isDark} {...transitionClasses}>
-        <img src="../../images/icon-sun.svg" alt="moon icon" />
+        <img src={sunIcon} alt="sun icon" />
       </Transition>
       <Transition show={isDark} {...transitionClasses}>
-        <img src="../../images/icon-moon.svg" alt="moon icon" />
+        <img src={moonIcon} alt="moon icon" />
       </Transition>
     </div>
   );

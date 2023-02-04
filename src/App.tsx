@@ -1,3 +1,4 @@
+import checkIcon from "../images/icon-check.svg";
 import {
   DndContext,
   DragOverEvent,
@@ -153,7 +154,7 @@ function App() {
             <div className="rounded-full border py-1.5 px-[5px] dark:border-gray-600  border-gray-300">
               <img
                 className="invisible"
-                src="../images/icon-check.svg"
+                src={checkIcon}
                 alt="check mark icon"
               />
             </div>

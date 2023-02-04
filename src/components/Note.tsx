@@ -1,4 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable";
+import crossIcon from "../../images/icon-cross.svg";
+import checkIcon from "../../images/icon-check.svg";
 import { MouseEvent, MouseEventHandler } from "react";
 
 function Note({
@@ -53,7 +55,7 @@ function Note({
           <img
             className={`
              py-1.5 px-[5px] rounded-full`}
-            src="../images/icon-check.svg"
+            src={checkIcon}
             alt="check mark icon"
           />
         ) : (
@@ -61,7 +63,7 @@ function Note({
             <img
               className={`invisible
              py-1.5 px-[5px] rounded-full`}
-              src="../images/icon-check.svg"
+              src={checkIcon}
               alt="check mark icon"
             />
           </div>
@@ -81,7 +83,7 @@ function Note({
           className={`${
             selected ? "visibile" : "invisible"
           } mr-10 cursor-pointer`}
-          src="../../images/icon-cross.svg"
+          src={crossIcon}
           alt="cross icon"
         />
       </div>
