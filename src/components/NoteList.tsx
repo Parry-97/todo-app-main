@@ -36,13 +36,33 @@ function NoteList({
     });
   };
 
+  let filteredNotes: NoteType[] = [];
+
+  switch (noteStatus) {
+    case "active":
+      filteredNotes = currentNotes.filter(
+        (note) => note.noteStatus == "active"
+      );
+      break;
+
+    case "completed":
+      filteredNotes = currentNotes.filter(
+        (note) => note.noteStatus == "completed"
+      );
+      break;
+
+    default:
+      filteredNotes = currentNotes;
+      break;
+  }
+
   return (
     <div className="absolute top-1/4 left-1/2 -translate-x-1/2 dark:text-white rounded-sm py-1 shadow-2xl  bg-white gap-5 dark:bg-very-dark-desaturated-blue w-11/12 max-w-2xl mx-auto mt-10">
       <ul
         ref={animationParent}
         className="divide-y dark:divide-very-dark-grayish-blue "
       >
-        {currentNotes.map((note) => (
+        {filteredNotes.map((note) => (
           <Note
             onDelete={() =>
               onChangeNotes(
@@ -57,7 +77,7 @@ function NoteList({
           ></Note>
         ))}
         <div className="my-0.5 mx-10 py-5 text-dark-grayish-blue dark:text-dark-grayish-blue flex gap-5 justify-between">
-          <p>{currentNotes.length} items left</p>
+          <p>{filteredNotes.length} items left</p>
           <NoteStatusToggle status={noteStatus} onToggle={setNoteStatus} />
           <span onClick={clearCompleted} className="cursor-pointer">
             Clear completed
