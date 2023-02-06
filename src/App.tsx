@@ -18,6 +18,7 @@ import { login } from "./services/auth";
 import {
   addNote,
   fetchNotes,
+  fetchSampleNotes,
   NoteType,
   setToken,
   token,
@@ -31,24 +32,24 @@ function App() {
   const queryClient = useQueryClient();
 
   const [notes, setNotes] = useImmer<NoteType[]>([]);
-  const {
-    // data: userData,
-    // isLoading: isUserLoading,
-    // isError: isLoginError,
-    isSuccess: isUserSuccess,
-  } = useQuery({
-    queryKey: ["login", token],
-    queryFn: () =>
-      login({
-        password: import.meta.env.VITE_PWD,
-        username: import.meta.env.VITE_USERNAME,
-      }),
-    staleTime: 3600000,
-    onSuccess: (response) => {
-      setToken(response.data.token);
-      // console.log("token", token);
-    },
-  });
+  // const {
+  //   // data: userData,
+  //   // isLoading: isUserLoading,
+  //   // isError: isLoginError,
+  //   isSuccess: isUserSuccess,
+  // } = useQuery({
+  //   queryKey: ["login", token],
+  //   queryFn: () =>
+  //     login({
+  //       password: import.meta.env.VITE_PWD,
+  //       username: import.meta.env.VITE_USERNAME,
+  //     }),
+  //   staleTime: 3600000,
+  //   onSuccess: (response) => {
+  //     setToken(response.data.token);
+  //     // console.log("token", token);
+  //   },
+  // });
 
   const {
     // data,
@@ -57,9 +58,9 @@ function App() {
     // isSuccess,
   } = useQuery({
     queryKey: ["notes", token],
-    queryFn: fetchNotes,
+    queryFn: /* fetchNotes */ fetchSampleNotes,
     staleTime: 100000,
-    enabled: isUserSuccess,
+    // enabled: isUserSuccess,
     onSuccess(data) {
       //WARN: Had to assign to a state variable to have it work properly as a dependent query
       console.log("notes", data);

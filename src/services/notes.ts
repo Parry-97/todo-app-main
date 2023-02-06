@@ -1,5 +1,36 @@
 import axios from "axios"
 
+let sampleNotes: NoteType[] = [
+  {
+    content: "React is awesome",
+    date: new Date(),
+    important: Math.random() > 0.5,
+    id : "1",
+    noteStatus: 'active'
+  },
+  {
+    content: "TypeScript provides nice DX",
+    date: new Date(),
+    important: Math.random() > 0.5,
+    id : "2",
+    noteStatus: 'active'
+  },
+  {
+    content: "Immer makes state manipulation very easy",
+    date: new Date(),
+    important: Math.random() > 0.5,
+    id : "3",
+    noteStatus: 'active'
+  },
+  {
+    content: "React Query is the best",
+    date: new Date(),
+    important: Math.random() > 0.5,
+    id : "4",
+    noteStatus: 'active'
+  }
+] 
+
 export interface NoteType {
   content: string,
   date: Date,
@@ -24,6 +55,9 @@ export async function fetchNotes () {
   return notes.data;
 }
 
+export function fetchSampleNotes(type) {
+  return sampleNotes; 
+}
 
 export async function addNote(newNote : NoteType) {
   const config = {
