@@ -55,7 +55,7 @@ export async function fetchNotes () {
   return notes.data;
 }
 
-export function fetchSampleNotes(type) {
+export function fetchSampleNotes() {
   return sampleNotes; 
 }
 
